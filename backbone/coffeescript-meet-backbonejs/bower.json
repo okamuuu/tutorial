@@ -4,9 +4,9 @@
   "dependencies": {
     "bootstrap": "~3.0.3",
     "jquery": "~1.11.0",
-    "json2": "",
-    "underscore": "",
-    "backbone": ""
+    "json2": "*",
+    "underscore": "*",
+    "backbone": "*"
   },
   "devDependencies": {}
 }

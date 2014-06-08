@@ -51,6 +51,10 @@ module.exports = function (grunt) {
                 files: ['<%= config.app %>/styles/{,*/}*.css'],
                 tasks: ['newer:copy:styles', 'autoprefixer']
             },
+            coffee: {
+                files: ['app/scripts/**/*.coffee'],
+                tasks: ['coffee:compile']
+            },
             livereload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
@@ -62,7 +66,17 @@ module.exports = function (grunt) {
                 ]
             }
         },
-
+        coffee: {
+          compile: {
+            expand: true,
+            cwd: 'app/scripts',
+            src: ['**/*.coffee'],
+            dest: 'app/scripts',
+            ext: '.js',
+            extDot: 'last'
+          }
+        },
+    
         // The actual grunt server settings
         connect: {
             options: {
