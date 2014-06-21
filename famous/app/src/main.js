@@ -5,12 +5,14 @@ define(function(require, exports, module) {
   var Transform = require('famous/core/Transform');
   var StateModifier = require('famous/modifiers/StateModifier');
   var Easing = require('famous/transitions/Easing');
-  
+  var Transitionable = require('famous/transitions/Transitionable');
+  var SpringTransition = require('famous/transitions/SpringTransition');
+  Transitionable.registerMethod('spring', SpringTransition);
+
   var mainContext = Engine.createContext();
 
   var surface = new Surface({
     size: [100, 100],
-    content: 'click me to halt',
     properties: {
       color: 'white',
       textAlign: 'center',
@@ -26,15 +28,7 @@ define(function(require, exports, module) {
 
   stateModifier.setTransform(
     Transform.translate(0, 300, 0),
-    { duration: 8000, curve: 'linear' }
+    { method: 'spring', period: 1000, dampingRatio: 0.3 }
   );
 
-  surface.on('click', function() {
-    stateModifier.halt();
-    surface.setContent('halted');
-    stateModifier.setTransform(
-      Transform.translate(0, 400, 0),
-     { duration: 400, curve: Easing.outBounce }
-    );
-  });
 });
