@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 
   var surface = new Surface({
     size: [100, 100],
+    content: 'click me to halt',
     properties: {
       color: 'white',
       textAlign: 'center',
@@ -17,21 +18,19 @@ define(function(require, exports, module) {
     }
   });
 
-  var stateModifier = new StateModifier();
+  var stateModifier = new StateModifier({
+    origin: [0.5, 0]
+  });
 
   mainContext.add(stateModifier).add(surface);
 
   stateModifier.setTransform(
     Transform.translate(0, 300, 0),
-    { duration: 1000, curve: Easing.inExpo }
+    { duration: 8000, curve: 'linear' }
   );
 
-  stateModifier.setTransform(
-    Transform.translate(100, 300, 0),
-    { duration: 800, curve: Easing.outElastic },
-    function() {
-      surface.setContent('finished');
-    }
-  );
-
+  surface.on('click', function() {
+    stateModifier.halt();
+    surface.setContent('halted');
+  });
 });
