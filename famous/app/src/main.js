@@ -7,76 +7,27 @@ define(function(require, exports, module) {
 
   var mainContext = Engine.createContext();
 
-/*
-  function createSurface() {
-    var surface = new Surface({
-      size: [100, 100],
-      content: 'surface',
-      properties: {
-        color: 'white',
-        textAlign: 'center',
-        backgroundColor: '#FA5C4F'
-      }
-    });
-
-    mainContext.add(surface);
-  }
-
-  function createModifiedSurface() {
-    var modifiedSurface = new Surface({
-      size: [100, 100],
-      content: 'modified surface',
-      properties: {
-        color: 'white',
-        textAlign: 'center',
-        backgroundColor: '#FA5C4F'
-      }
-    });
-
-    var stateModifier = new StateModifier({
-      transform: Transform.translate(150, 100, 0)
-    });
-
-    mainContext.add(stateModifier).add(modifiedSurface);
-  }
-*/
-
-  var translateModifierOne = new StateModifier({
-    transform: Transform.translate(200, 0, 0)
+  var downMod = new StateModifier({
+    transform: Transform.translate(0, 100, 0)
   });
 
-  var translateModifierTwo = new StateModifier({
-    transform: Transform.translate(200, 0, 0)
+  var rightMod = new StateModifier({
+    transform: Transform.translate(150, 0, 0)
   });
 
-  var rotateModifierOne = new StateModifier({
-    transform: Transform.rotateZ(Math.PI/4)
-  });
-
-  var rotateModifierTwo = new StateModifier({
-    transform: Transform.rotateZ(Math.PI/4)
-  });
-
-  var redSurface = new Surface({
-    size: [100, 100],
+  var leftSurface = new Surface({
+    size: [120, 100],
+    content: 'left surface',
     classes: ['red-bg']
   });
 
-  var greySurface = new Surface({
-    size: [100, 100],
+  var rightSurface = new Surface({
+    size: [120, 100],
+    content: 'content',
     classes: ['grey-bg']
   });
 
-  mainContext
-    .add(translateModifierOne)
-    .add(rotateModifierOne)
-    .add(redSurface);
-
-  mainContext
-    .add(translateModifierTwo)
-    .add(rotateModifierTwo)
-    .add(greySurface);
-
-  //createSurface();
-  //createModifiedSurface();
+  var node = mainContext.add(downMod);
+  node.add(leftSurface);
+  node.add(rightMod).add(rightSurface);
 });
