@@ -4,30 +4,63 @@ define(function(require, exports, module) {
   var Surface = require('famous/core/Surface');
   var Transform = require('famous/core/Transform');
   var StateModifier = require('famous/modifiers/StateModifier');
+  var View = require('famous/core/View');
 
   var mainContext = Engine.createContext();
 
-  var downMod = new StateModifier({
-    transform: Transform.translate(0, 100, 0)
+  var aligin = [0.5, 0.5];
+  var origin = [0.5, 0.5];
+
+  mainContext.add(modifier).add(surface);
+
+  var view = new View();
+
+  view.add(new Surface({
+    properties: {
+      backgroundColor: '#FA5C4F'
+    }
+  }));
+
+  var viewModifier = new StateModifier({
+    size: [200, 200],
+    origin: origin,
+    aligin: aligin
   });
 
-  var rightMod = new StateModifier({
-    transform: Transform.translate(150, 0, 0)
-  });
+  var positions = [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+  ];
 
-  var leftSurface = new Surface({
-    size: [120, 100],
-    content: 'left surface',
-    classes: ['red-bg']
-  });
+  for (var i = 0; i < positions.length; i++) {
+    var surface = new Surface({
+      size: [true, true],
+      content: 'origin:<br />' + positions[i]
+    });
 
-  var rightSurface = new Surface({
-    size: [120, 100],
-    content: 'content',
-    classes: ['grey-bg']
-  });
+    var modifier = new StateModifier({
+      origin: positions[i],
+      align: positions[i]
+    });
 
-  var node = mainContext.add(downMod);
-  node.add(leftSurface);
-  node.add(rightMod).add(rightSurface);
+    view.add(modifier).add(surface);
+  }
+
+  mainContext.add(viewModifier).add(view);
+
+  for (var j = 0; j < positions.length; j++) {
+    var _surface = new Surface({
+      size: [true, true],
+      content: 'align:<br>' + positions[j]
+    });
+    
+    var _modifier = new StateModifier({
+      origin: positions[j],
+      align: positions[j]
+    });
+    
+    mainContext.add(_modifier).add(_surface);
+  }
 });
