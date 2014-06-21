@@ -32,5 +32,9 @@ define(function(require, exports, module) {
   surface.on('click', function() {
     stateModifier.halt();
     surface.setContent('halted');
+    stateModifier.setTransform(
+      Transform.translate(0, 400, 0),
+     { duration: 400, curve: Easing.outBounce }
+    );
   });
 });
