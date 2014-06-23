@@ -1,25 +1,15 @@
-/* globals define */
+/* main.js */
+
 define(function(require, exports, module) {
   'use strict';
-  // import dependencies
-  var View = require('famous/core/View');
-  var Surface = require('famous/core/Surface');
-  var Transform = require('famous/core/Transform');
-  var StateModifier = require('famous/modifiers/StateModifier');
+  var Engine = require('famous/core/Engine');
 
-  // Constructor function for our EmptyView class
-  function EmptyView() {
+  // import the AppView class using require
+  var AppView = require('views/AppView');
 
-    // Applies View's constructor function to Emptyview
-    View.apply(this, arguments);
-  }
+  var mainContext = Engine.createContext();
 
-  // Establishes prototype chain for EmptyView class to inherit from View
-  EmptyView.prototype = Object.create(View.prototype);
-  EmptyView.prototype.constructor = EmptyView;
+  var appView = new AppView();
 
-  // Default options for EmptyView class
-  EmptyView.DEFAULT_OPTIONS = {};
-
-  module.exports = EmptyView;
+  mainContext.add(appView);
 });
