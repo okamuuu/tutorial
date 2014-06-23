@@ -2,12 +2,15 @@ define(function(require, exports, module) {
   'use strict';
   var Engine = require('famous/core/Engine');
   var Surface = require('famous/core/Surface');
+  var EventHandler = require('famous/core/EventHandler');
+
+  var eventHandler = new EventHandler();
 
   var mainContext = Engine.createContext();
 
   var surface = new Surface({
-    size: [undefined, 100],
-    content: 'resize your browser window',
+    size: [100, 100],
+    content: 'A<br>click me to emit "hello"',
     properties: {
       color: 'white',
       textAlign: 'center',
@@ -15,10 +18,14 @@ define(function(require, exports, module) {
     }
   });
 
-  mainContext.add(surface);
-
-  Engine.on('resize', function() {
-    surface.setContent('resised');
+  surface.on('click', function() {
+    eventHandler.emit('hello');
   });
+
+  eventHandler.on('hello', function() {
+    surface.setContent('heard hello');
+  });
+
+  mainContext.add(surface);
 
 });
