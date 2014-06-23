@@ -48,7 +48,7 @@ define(function(require, exports, module) {
     surfaceA.setContent('said hello');
   });
 
-  eventHandlerB.subscribe(eventHandlerA);
+  eventHandlerA.pipe(eventHandlerB);
 
   eventHandlerB.on('hello', function() {
     surfaceB.setContent('heard hello');
