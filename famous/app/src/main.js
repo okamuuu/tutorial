@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 
   var surface = new Surface({
     size: [undefined, 100],
-    content: 'press a key in the preview window',
+    content: 'resize your browser window',
     properties: {
       color: 'white',
       textAlign: 'center',
@@ -17,8 +17,8 @@ define(function(require, exports, module) {
 
   mainContext.add(surface);
 
-  Engine.on('keydown', function(e) {
-    surface.setContent(e.which);
+  Engine.on('resize', function() {
+    surface.setContent('resised');
   });
 
 });
