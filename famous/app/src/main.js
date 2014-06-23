@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 
   var surface = new Surface({
     size: [undefined, 100],
-    content: 'click me',
+    content: 'press a key in the preview window',
     properties: {
       color: 'white',
       textAlign: 'center',
@@ -17,9 +17,8 @@ define(function(require, exports, module) {
 
   mainContext.add(surface);
 
-  surface.on('click', function() {
-    surface.setProperties({
-      backgroundColor: '#878785'
-    });
+  Engine.on('keydown', function(e) {
+    surface.setContent(e.which);
   });
+
 });
