@@ -6,8 +6,15 @@ define(function(require, exports, module) {
   var Transform = require('famous/core/Transform');
   var StateModifier = require('famous/modifiers/StateModifier');
 
+  var SlideShowView = require('views/SlideShowView');
+
   function AppView() {
     View.apply(this, arguments);
+
+    var slideshowView = new SlideShowView();
+
+    this.add(slideshowView);
+
   }
 
   AppView.prototype = Object.create(View.prototype);
