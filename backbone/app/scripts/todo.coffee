@@ -1,6 +1,6 @@
 # todo.coffee
 jQuery ->
- 
+   
   class Todo extends Backbone.Model
     initialize:->
       console.dir("Todo#initialize")
@@ -24,6 +24,6 @@ jQuery ->
       @collection.add todo
  
     template:(todo) ->
-      "<li>" + todo.get("content") + "</li>"
+      "<li><span>" + todo.get("content") + "</span></li>"
  
   todo_view = new TodoView

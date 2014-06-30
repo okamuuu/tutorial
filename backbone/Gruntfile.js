@@ -33,6 +33,13 @@ module.exports = function (grunt) {
                 files: ['bower.json'],
                 tasks: ['bowerInstall']
             },
+            coffee: {
+                files: ['<%= config.app %>/scripts/{,*/}*.coffee'],
+                tasks: ['coffee:compile'],
+                options: {
+                    livereload: true
+                }
+            },
             js: {
                 files: ['<%= config.app %>/scripts/{,*/}*.js'],
                 tasks: ['jshint'],
@@ -316,6 +323,16 @@ module.exports = function (grunt) {
                 'imagemin',
                 'svgmin'
             ]
+        },
+
+        coffee: {
+          compile: { 
+            expand: true,
+              cwd: 'app/scripts',
+              src: ['**/*.coffee'],
+              dest: 'app/scripts',
+              ext: '.js'
+          }
         }
     });
 
