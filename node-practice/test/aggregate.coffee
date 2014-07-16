@@ -23,18 +23,21 @@ describe 'MongoClient', ->
     
     it 'should be...', (done)->
  
-      collection = db.collection('orders')
-     
-      MAX = 300
-      async.forEachSeries [1..MAX], (val, next)->
+      product_ids = [1, 2, 2, 3, 3, 3].map (i)-> "product" + i
+
+      ORDERS_COUNT = 300
+      async.forEachSeries [1..ORDERS_COUNT], (val, next)->
         daysAgo = (val - val%10)/10
         date = moment(new Date).subtract('day', daysAgo).toDate()
-        collection.insert {ordered_at:date}, (e, docs)->
+        db.collection('orders').insert
+          product_id: product_ids[val%product_ids.length]
+          ordered_at: date
+        , (e)->
           do next
       ,
-      (e, results)->
-        collection.count (e, count)->
-          assert.ok count is MAX
+      (e)->
+        db.collection('orders').count (e, count)->
+          assert.ok count is ORDERS_COUNT
           do done
   
   describe 'aggregate', ->
@@ -43,6 +46,7 @@ describe 'MongoClient', ->
     
       db.collection('orders').aggregate
         $project:
+          product_id: 1
           ordered_at: 1
           year:
             $year: "$ordered_at"
@@ -64,6 +68,7 @@ describe 'MongoClient', ->
             year: "$year"
             month: "$month"
             day: "$day"
+            product_id: "$product_id"
           ordered_at:
             $last: "$ordered_at"
           daykey:
@@ -71,10 +76,19 @@ describe 'MongoClient', ->
           count:
             $sum: 1
       ,
-        $project:
-          ordered_at: 1
-          daykey: 1
-          count: 1
-      , (e, result)->
-        console.log e, result
+        $sort:
+          daykey: -1
+          count: -1
+      , (e, results)->
+        #for r in results
+        #  console.log moment(r.ordered_at).format('YYYY-MM-DD') + ', ' + r._id.product_id + ', ' + r.count
+          
+        lastDay = undefined
+        for r in results
+          if lastDay is undefined or lastDay.daykey isnt r.daykey
+            lastDay = r
+          else
+            console.log r.daykey + ', ' + r._id.product_id  + ', ' + r.count
+            assert.ok lastDay.count >= r.count
+            lastDay = r
         do done
