@@ -1,0 +1,21 @@
+{
+  "name": "node-practice",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^1.4.7",
+    "async": "^0.9.0",
+    "moment": "^2.7.0"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "coffee-errors": "^0.8.6",
+    "assert": "^1.1.1"
+  }
+}
