@@ -1,3 +1,4 @@
+require 'coffee-script'
 require 'coffee-errors'
 assert = require 'assert'
 moment = require 'moment'
@@ -69,8 +70,6 @@ describe 'MongoClient', ->
             month: "$month"
             day: "$day"
             product_id: "$product_id"
-          ordered_at:
-            $last: "$ordered_at"
           daykey:
             $last: "$daykey"
           count:
@@ -80,9 +79,7 @@ describe 'MongoClient', ->
           daykey: -1
           count: -1
       , (e, results)->
-        #for r in results
-        #  console.log moment(r.ordered_at).format('YYYY-MM-DD') + ', ' + r._id.product_id + ', ' + r.count
-          
+        console.log e if e
         lastDay = undefined
         for r in results
           if lastDay is undefined or lastDay.daykey isnt r.daykey
