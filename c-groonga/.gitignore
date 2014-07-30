@@ -1,0 +1,4 @@
+node_modules/
+db/*
+a.out
+*.o
