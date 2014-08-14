@@ -9,6 +9,32 @@ define(function(require, exports, module) {
     var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
 
+    // Constructor function for our SlideView class
+    function SlideView() {
+
+        // Applies View's constructor function to SlideView class
+        View.apply(this, arguments);
+
+        this.rootModifier = new StateModifier({
+          size: this.options.size
+        });
+
+        this.mainNode = this.add(this.rootModifier);
+
+        _createBackground.call(this);
+        _createFilm.call(this);
+    }
+
+    // Establishes prototype chain for SlideView class to inherit from View
+    SlideView.prototype = Object.create(View.prototype);
+    SlideView.prototype.constructor = SlideView;
+
+    // Default options for SlideView class
+    SlideView.DEFAULT_OPTIONS = {
+      size: [400, 450],
+      filmBorder: 15
+    };
+
     function _createBackground() {
       var background = new Surface({
         properties: {
@@ -39,30 +65,5 @@ define(function(require, exports, module) {
         this.mainNode.add(filmModifier).add(film);
     }
 
-    // Constructor function for our SlideView class
-    function SlideView() {
-
-        // Applies View's constructor function to SlideView class
-        View.apply(this, arguments);
-
-        this.rootModifier = new StateModifier({
-          size: this.options.size
-        });
-
-        this.mainNode = this.add(this.rootModifier);
-
-        _createBackground.call(this);
-        _createFilm.call(this);
-    }
-
-    // Establishes prototype chain for SlideView class to inherit from View
-    SlideView.prototype = Object.create(View.prototype);
-    SlideView.prototype.constructor = SlideView;
-
-    // Default options for SlideView class
-    SlideView.DEFAULT_OPTIONS = {
-      size: [400, 450],
-      filmBorder: 15
-    };
     module.exports = SlideView;
 });
