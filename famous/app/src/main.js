@@ -18,7 +18,7 @@ define(function(require, exports, module) {
       backgroundColor: '#FA5C4F'
     }
   });
-  
+
   myView.add(surface);
 
   surface.pipe(myView);
