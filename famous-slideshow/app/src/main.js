@@ -4,12 +4,21 @@ define(function(require, exports, module) {
   'use strict';
   var Engine = require('famous/core/Engine');
 
-  // import the AppView class using require
+  var Utility = require('famous/utilities/Utility');
+
   var AppView = require('views/AppView');
+
+  var SlideData = require('data/SlideData');
 
   var mainContext = Engine.createContext();
 
-  var appView = new AppView();
+  Utility.loadURL(SlideData.getUrl(), initApp);
 
-  mainContext.add(appView);
+  function initApp(data) {
+    data = SlideData.parse(data);
+
+    var appView = new AppView({data: data});
+
+    mainContext.add(appView);
+  }
 });

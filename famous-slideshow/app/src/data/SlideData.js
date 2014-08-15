@@ -9,7 +9,6 @@ define(function(require, exports, module) {
 
     SlideData.getUrl = function() {
         var url = SlideData.picasaUrl + SlideData.userId + '/albumid/' + SlideData.albumId + SlideData.queryParams;
-        console.log(url);
         return url;
     };
 
