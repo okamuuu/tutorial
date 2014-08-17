@@ -31,11 +31,18 @@ define(function(require, exports, module) {
     SlideshowView.prototype = Object.create(View.prototype);
     SlideshowView.prototype.constructor = SlideshowView;
     SlideshowView.prototype.showCurrentSlide = function() {
+      this.ready = false;
+
       var slide = this.slides[this.currentIndex];
-      this.lightbox.show(slide);
+      this.lightbox.show(slide, function() {
+        this.ready = true;
+        slide.fadeIn();
+      }.bind(this));
     };
     
     SlideshowView.prototype.showNextSlide = function() {
+      if (!this.ready) return;
+
       this.currentIndex++;
       if (this.currentIndex === this.slides.length)
         this.currentIndex = 0;
@@ -46,16 +53,17 @@ define(function(require, exports, module) {
       size: [450, 500],
       data: undefined,
       lightboxOpts: {
-        inTransform: Transform.translate( 300, 0, 0),
         inOpacity: 1,
+        outOpacity: 0,
         inOrigin: [0, 0],
-        showOrigin: [0, 0],
-        outTrasform: Transform.translate(-500, 0, 0),
-        outOpacity: 1,
         outOrigin: [0, 0],
-        inTransition: { duration: 500, curve: Easing.outBack },
-        outTrasition: { duration: 350, curve: Easing.inQuad },
-        overlap: true
+        showOrigin: [0, 0],
+        // Transform.thenMove() first applies a transform then a
+        // translation based on [x, y, z]
+        inTransform: Transform.thenMove(Transform.rotateX(0.9), [0, -300, 0]),
+        outTransform: Transform.thenMove(Transform.rotateZ(0.7), [0, window.innerHeight, -1000]),
+        inTransition: { duration: 650, curve: 'easeOut' },
+        outTransition: { duration: 500, curve: Easing.inCubic }
       }
     };
 
