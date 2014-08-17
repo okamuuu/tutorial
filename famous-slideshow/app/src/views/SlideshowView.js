@@ -6,11 +6,12 @@ define(function(require, exports, module) {
     // Import additional modules to be used in this view 
     var View = require('famous/core/View');
     //var Surface = require('famous/core/Surface');
-    //var Transform = require('famous/core/Transform');
+    var Transform = require('famous/core/Transform');
     var StateModifier = require('famous/modifiers/StateModifier');
     var Lightbox = require('famous/views/Lightbox');
 
     var SlideView = require('views/SlideView');
+    var Easing = require('famous/transitions/Easing');
 
     function SlideshowView() {
         View.apply(this, arguments);
@@ -44,7 +45,12 @@ define(function(require, exports, module) {
     SlideshowView.DEFAULT_OPTIONS = {
       size: [450, 500],
       data: undefined,
-      lightboxOpts: {}
+      lightboxOpts: {
+        inTransform: Transform.translate( 300, 0, 0),
+        outTrasform: Transform.translate(-500, 0, 0),
+        inTransition: { duration: 500, curve: Easing.outBack },
+        outTrasition: { duration: 350, curve: Easing.inQuad }
+      }
     };
 
     function _createLightbox() {
