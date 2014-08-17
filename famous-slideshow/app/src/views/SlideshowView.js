@@ -47,9 +47,15 @@ define(function(require, exports, module) {
       data: undefined,
       lightboxOpts: {
         inTransform: Transform.translate( 300, 0, 0),
+        inOpacity: 1,
+        inOrigin: [0, 0],
+        showOrigin: [0, 0],
         outTrasform: Transform.translate(-500, 0, 0),
+        outOpacity: 1,
+        outOrigin: [0, 0],
         inTransition: { duration: 500, curve: Easing.outBack },
-        outTrasition: { duration: 350, curve: Easing.inQuad }
+        outTrasition: { duration: 350, curve: Easing.inQuad },
+        overlap: true
       }
     };
 
