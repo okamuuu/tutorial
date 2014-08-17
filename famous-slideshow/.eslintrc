@@ -6,6 +6,7 @@
     "globals": {
         "DocumentFragment": true,
         "console": true,
+        "bind": true
     },
     "rules": {
         "valid-jsdoc": 0,

@@ -49,6 +49,10 @@ define(function(require, exports, module) {
         }
       });
       this.mainNode.add(background);
+
+      background.on('click', function() {
+        this._eventOutput.emit('click');
+      }.bind(this));
     }
  
     function _createFilm() {
@@ -57,8 +61,9 @@ define(function(require, exports, module) {
         var film = new Surface({
             size: [this.options.filmSize, this.options.filmSize],
             properties: {
-                backgroundColor: '#222',
-                zIndex: 1
+              backgroundColor: '#222',
+              zIndex: 1,
+              pointerEvents: 'none'
             }
         });
 
@@ -76,9 +81,11 @@ define(function(require, exports, module) {
 
       var photo = new ImageSurface({
         size: [photoSize, photoSize],
+        //size: [size, size],
         content: this.options.photoUrl,
         properties: {
-          zIndex: 2
+          zIndex: 2,
+          pointerEvents: 'none'
         }
       });
 
