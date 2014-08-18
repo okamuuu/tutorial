@@ -10,7 +10,11 @@ define(function(require, exports, module) {
     var mainContext = Engine.createContext();
 
     var grid = new GridLayout({
-      dimensions: [4, 2]   
+      dimensions: [4, 2],
+      transition: {
+        curve: 'easeInOut',
+        duration: 2000
+      }
     });
 
     var surfaces = [];
@@ -23,11 +27,23 @@ define(function(require, exports, module) {
         properties: {
           backgroundColor: "hsl(" + (i * 360 / 8) + ", 100%, 50%)",
           color: "#404040",
-          lineHeight: '200px',
+          lineHeight: '100px',
           textAlign: 'center'
         }
       }));
     }
 
     mainContext.add(grid);
+
+    var toggle = false;
+    Engine.on('click', function() {
+      if (toggle) {
+        grid.setOptions({dimensions: [4, 2]});
+      }
+      else {
+        grid.setOptions({dimensions: [2, 4]});
+      }
+      toggle = !toggle;
+    });
+
 });
