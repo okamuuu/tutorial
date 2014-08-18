@@ -19,7 +19,7 @@
         "checkParamNames": true,
         "requireParamTypes": false
     },
-    "validateQuoteMarks": "'",
+    "validateQuoteMarks": false,
     "disallowMultipleVarDecl": true,
     "disallowSpacesInsideParentheses": true
 }

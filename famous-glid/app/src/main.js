@@ -12,7 +12,7 @@ define(function(require, exports, module) {
     var grid = new GridLayout();
 
     var surface = new Surface({
-      content: "I am a Surface",
+      content: 'I am a Surface',
       size: [undefined, undefined],
       properties: {
         backgroundColor: "red",
