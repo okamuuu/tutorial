@@ -9,19 +9,25 @@ define(function(require, exports, module) {
     // create the main context
     var mainContext = Engine.createContext();
 
-    var grid = new GridLayout();
-
-    var surface = new Surface({
-      content: 'I am a Surface',
-      size: [undefined, undefined],
-      properties: {
-        backgroundColor: "red",
-        color: "#404040",
-        textAlign: 'center'
-      }
+    var grid = new GridLayout({
+      dimensions: [4, 2]   
     });
 
-    grid.sequenceFrom([surface]);
+    var surfaces = [];
+    grid.sequenceFrom(surfaces);
+
+    for (var i = 0; i < 8; i++) {
+      surfaces.push(new Surface({
+        content: "panel " + (i + 1),
+        size: [undefined, undefined],
+        properties: {
+          backgroundColor: "hsl(" + (i * 360 / 8) + ", 100%, 50%)",
+          color: "#404040",
+          lineHeight: '200px',
+          textAlign: 'center'
+        }
+      }));
+    }
 
     mainContext.add(grid);
 });
